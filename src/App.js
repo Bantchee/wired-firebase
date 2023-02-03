@@ -1,84 +1,34 @@
+import React, { useState } from 'react';
 import './App.css';
-import { useState, useEffect } from 'react';
-import AgoraRTC from 'agora-rtc-sdk-ng';
+import AgoraUIKit from 'agora-react-uikit';
 
-function App() {
-  const [inVideoCall, setInVideoCall] = useState(false);
-  
-  let options =
-  {
-    // Pass your App ID here.
-    appId: '',
-    // Set the channel name.
-    channel: '',
-    // Pass your temp token here.
-    token: '',
-    // Set the user ID.
-    uid: 0,
+const App = () => {
+  const [inCall, setInCall] = useState(false);
+  const rtcProps = {
+    appId: '499da72755484274a1f430c5a9a9ce17',
+    channel: 'test',
+    token: '007eJxTYGBumbHp/XL76MU1BRNkFqxMPNH2xnKOR+MW/6oDHdYvA0UVGEwsLVMSzY3MTU1NLEyMzE0SDdNMjA2STRMtEy2TUw3N/6jfTW4IZGS47c7OwAiFID4LQ0lqcQkDAwBdcx+D',
+  };
+  const callbacks = {
+    EndCall: () => setInCall(false),
   };
 
-let channelParameters = {
-  // A variable to hold a local audio track.
-  localAudioTrack: null,
-  // A variable to hold a local video track.
-  localVideoTrack: null,
-  // A variable to hold a remote audio track.
-  remoteAudioTrack: null,
-  // A variable to hold a remote video track.
-  remoteVideoTrack: null,
-  // A variable to hold the remote user id.s
-};
-
-function startCall() {
-  console.log("Start Call");
-  setInVideoCall(true);
-};
-
-function leaveCall(elementId) {
-  console.log("Leave Call");
-  setInVideoCall(false);
-};
-
-function createLocalPlayerContainer() {
-  console.log("Create Call Element");
-  return (
-    <div
-    style={{
-      backgroundColor: 'red',
-      width: '500px',
-      height: '500px',
-    }}
-    >
-    </div>
-  );
-};
-
-function createRemotePlayerContainer() {
-  console.log("Create Call Element");
   return (
     <div>
-      <p>Video Call</p>
+      { 
+        inCall ? 
+          <div style={{display: 'flex', width: '100vw', height: '100vh'}}>
+            <AgoraUIKit rtcProps={rtcProps} callbacks={callbacks} />
+          </div> :
+          <button 
+            className='p-2 bg-neutral-400 text-lg'
+            onClick={() => setInCall(true)}
+          >
+            Start Call
+          </button>
+      }
     </div>
-  )
-};
-
-useEffect(() => {
-  const startBasicCall = async () => {
-    // Create an instance of the Agora Engine
-    const agoraEngine = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-  }
-}, [inVideoCall])
-
-return (
-  <div>
-    <h1>Get Started with Video Call</h1>
-    <div className="flex text-3xl font-bold">
-      { (inVideoCall) ? createLocalPlayerContainer() : null }
-      <button onClick={startCall}>Join</button>
-      <button onClick={() => leaveCall(0)}>Leave</button>
-    </div>
-  </div>
-);
+  );
 }
 
 export default App;
