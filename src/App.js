@@ -28,18 +28,23 @@ const App = () => {
         className='p-2 bg-neutral-400 text-lg'
         onClick={() => setInCall(true)}
         >
-          Start Call
+          Start Stream
         </button>
         <button
           className='p-2 bg-neutral-400 text-lg'
           onClick={() => setInCall(false)}
         >
-          Leave Call
+          Leave Stream
         </button>
         <button
           className='p-2 bg-neutral-400 text-lg'
         >
-          Join Call
+          Join Stream
+        </button>
+        <button
+          className='p-2 bg-neutral-400 text-lg'
+        >
+          Watch Stream
         </button>
       </div>
       
