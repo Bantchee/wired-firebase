@@ -17,15 +17,27 @@ const App = () => {
   const [displayStreamList, setDisplayStreamList] = useState(false);
   const streamsCollectionRef = collection(db, 'streams');
 
-  const rtcProps = {
-    appId: process.env.AGORA_APP_ID,
-    channel: 'test',
-    token: '007eJxTYAhTMNm9QXar2YHvtbrM+470Gf19e0fFZ2bQja3cW+O7D9UqMJhYWqYkmhuZm5qaWJgYmZskGqaZGBskmyZaJlompxqa7/n0KLkhkJHh+4UAJkYGCATxWRhKUotLGBgAi4IhUA==',
-  };
+  const PropsInterface = {
+    rtcProps: {
+      // delete this
+      appId: '499da72755484274a1f430c5a9a9ce17',
+      // appId: process.env.AGORA_APP_ID,
+      channel: 'test',
+      role: isHost ? 'host' : 'audience',
+      layout: isPinned ? layout.pin : layout.grid,
+      token: '007eJxTYAhTMNm9QXar2YHvtbrM+470Gf19e0fFZ2bQja3cW+O7D9UqMJhYWqYkmhuZm5qaWJgYmZskGqaZGBskmyZaJlompxqa7/n0KLkhkJHh+4UAJkYGCATxWRhKUotLGBgAi4IhUA==',
+    },
+    callbacks: {
+      EndCall: () => setInCall(false),
+    },
+    styleProps: {
+      localBtnContainer: {backgroundColor: 'blueviolet'}
+    }
+  }
 
-  const callbacks = {
-    EndCall: () => setInCall(false),
-  };
+  
+
+  
 
   const createStream = async () => {
     setInCall(true);
@@ -92,17 +104,37 @@ const App = () => {
             </div> :
           null
       }
-      { 
+      
+      {
         inCall ? 
-          <div 
-            className='flex w-100wv h-[500px]'
-          >
-            <AgoraUIKit rtcProps={rtcProps} callbacks={callbacks} />
-          </div> :
-          null
+        (
+          <div style={styles.container}>
+            <div 
+              className='flex flex-col'
+            >
+              <p style={{ fontSize: 20, width: 200 }}>You're {isHost ? 'a host' : 'an audience'}</p>
+              <p style={styles.btn} onClick={() => setHost(!isHost)}>Change Role</p>
+              <p style={styles.btn} onClick={() => setPinned(!isPinned)}>Change Layout</p>
+            </div>
+            <AgoraUIKit
+              className='w-[100%]'
+              rtcProps={PropsInterface.rtcProps}
+              callbacks={PropsInterface.callbacks}
+              styleProps={PropsInterface.styleProps} />
+          </div>
+        ) : null
       }
     </div>
   );
 }
+
+const styles = {
+  container: { width: '100vw', height: '100vh', display: 'flex', flex: 1, backgroundColor: '#007bff22'},
+  heading: { textAlign: 'center', marginBottom: 0 },
+  videoContainer: { display: 'flex', flexDirection: 'column', flex: 1 },
+  nav: { display: 'flex', justifyContent: 'space-around' },
+  btn: { backgroundColor: '#007bff', cursor: 'pointer', borderRadius: 5, padding: 5, color: '#ffffff', fontSize: 20 },
+}
+
 
 export default App;
