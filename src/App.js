@@ -25,7 +25,7 @@ const App = () => {
       channel: 'test',
       role: isHost ? 'host' : 'audience',
       layout: isPinned ? layout.pin : layout.grid,
-      token: '007eJxTYAhTMNm9QXar2YHvtbrM+470Gf19e0fFZ2bQja3cW+O7D9UqMJhYWqYkmhuZm5qaWJgYmZskGqaZGBskmyZaJlompxqa7/n0KLkhkJHh+4UAJkYGCATxWRhKUotLGBgAi4IhUA==',
+      token: '007eJxTYNh7oF7s0GSz9S/2pfRn7Bbi6Ra97D4xxM1uYVFs81/doAAFBhNLy5REcyNzU1MTCxMjc5NEwzQTY4Nk00TLRMvkVEPzmMAnyQ2BjAyPA7czMTJAIIjPwlCSWlzCwAAAGZce0w==',
     },
     callbacks: {
       EndCall: () => setInCall(false),
@@ -34,11 +34,7 @@ const App = () => {
       localBtnContainer: {backgroundColor: 'blueviolet'}
     }
   }
-
   
-
-  
-
   const createStream = async () => {
     setInCall(true);
 
@@ -73,19 +69,9 @@ const App = () => {
         </button>
         <button
           className='p-2 bg-neutral-400 text-lg'
-        >
-          Join Stream
-        </button>
-        <button
-          className='p-2 bg-neutral-400 text-lg'
-        >
-          Watch Stream
-        </button>
-        <button
-          className='p-2 bg-neutral-400 text-lg'
           onClick={() => setDisplayStreamList(!displayStreamList)}
         >
-          View Stream List
+          Join Stream
         </button>
       </div> 
       {
@@ -97,7 +83,11 @@ const App = () => {
             {streams.map((stream) => {
               return (
                 <div key={stream.id}>
-                  <p>{stream.title},</p>
+                  <button
+                    className='p-2 bg-blue-500 text-neutral-50'
+                  >
+                    Join {stream.title}
+                  </button>
                 </div>
               )
             })}
