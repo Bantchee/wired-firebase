@@ -22,10 +22,10 @@ const App = () => {
       // delete this
       appId: '499da72755484274a1f430c5a9a9ce17',
       // appId: process.env.AGORA_APP_ID,
-      channel: 'test',
+      channel: 'cat',
       role: isHost ? 'host' : 'audience',
       layout: isPinned ? layout.pin : layout.grid,
-      token: '007eJxTYNh7oF7s0GSz9S/2pfRn7Bbi6Ra97D4xxM1uYVFs81/doAAFBhNLy5REcyNzU1MTCxMjc5NEwzQTY4Nk00TLRMvkVEPzmMAnyQ2BjAyPA7czMTJAIIjPwlCSWlzCwAAAGZce0w==',
+      token: '006499da72755484274a1f430c5a9a9ce17IABfkT08zA4n7XpNgb96vVhsc2NGg8gu/yghTJDq1awDvqhDXp6j4OObIgCwkIgFsFHsYwQAAQBADutjAgBADutjAwBADutjBABADutj',
     },
     callbacks: {
       EndCall: () => setInCall(false),
