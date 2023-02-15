@@ -3,6 +3,7 @@ import './App.css';
 import AgoraUIKit, { PropsInterface, layout } from 'agora-react-uikit';
 import { db } from './firebase-config';
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import Footer from './components/Footer';
 
 const App = () => {
 
@@ -114,6 +115,7 @@ const App = () => {
           </div>
         ) : null
       }
+      <Footer></Footer>
     </div>
   );
 }
