@@ -5,24 +5,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header = () => {
     return (
         <div
-            className="flex flex-col"
+            className="flex flex-col "
         >
-            <div>
-                <FontAwesomeIcon icon={faStream} size="2x"/>
+            <div
+                className="flex justify-between px-12 pt-6"
+            >
+                <FontAwesomeIcon icon={faStream} size="3x"/>
+                <p
+                    className="text-4xl font-bold"
+                >
+                    Wired
+                </p>
                 <button
-                    className="p-2 bg-neutral-400 rounded-lg"
+                    className="px-4 py-2 bg-neutral-400 rounded-lg text-3xl font-bold"
                 >
                     Sign In
                 </button>
             </div>
-            <div>
+            <div
+                className="self-center flex gap-2"
+            >
                 <button
-                    className="p-2 bg-neutral-400 rounded-lg"
+                    className="px-4 py-2 bg-neutral-400 rounded-lg text-xl font-bold"
                 >
                     Start Stream
                 </button>
                 <input 
-                    className="border-2"
+                    className="border-2 border-neutral-900 rounded-lg p-2 w-[300px]"
                     type="text" 
                     placeholder="Stream Name..."
                 />
