@@ -4,6 +4,7 @@ import AgoraUIKit, { PropsInterface, layout } from 'agora-react-uikit';
 import { db } from './firebase-config';
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
 import Footer from './components/Footer';
+import Header from './components/Header'
 
 const App = () => {
 
@@ -55,6 +56,7 @@ const App = () => {
 
   return (
     <div>
+      <Header></Header>
       <div
         className='flex gap-1'
       >
