@@ -35,6 +35,16 @@ const Header = () => {
                     type="text" 
                     placeholder="Stream Name..."
                 />
+                <input 
+                    className="border-2 border-neutral-900 rounded-lg p-2 w-[300px]"
+                    type="text" 
+                    placeholder="Role..."
+                />
+                <input 
+                    className="border-2 border-neutral-900 rounded-lg p-2 w-[300px]"
+                    type="text" 
+                    placeholder="User Id..."
+                />
             </div>
         </div>
     )
