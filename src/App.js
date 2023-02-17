@@ -4,7 +4,8 @@ import AgoraUIKit, { PropsInterface, layout } from 'agora-react-uikit';
 import { db } from './firebase-config';
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
 import Footer from './components/Footer';
-import Header from './components/Header'
+import Header from './components/Header';
+import StreamCatalog from './components/StreamCatalog';
 
 const App = () => {
 
@@ -24,10 +25,11 @@ const App = () => {
       // delete this
       appId: '499da72755484274a1f430c5a9a9ce17',
       // appId: process.env.AGORA_APP_ID,
-      channel: 'cat',
+      channel: 'testing',
       role: isHost ? 'host' : 'audience',
       layout: isPinned ? layout.pin : layout.grid,
-      token: '006499da72755484274a1f430c5a9a9ce17IABfkT08zA4n7XpNgb96vVhsc2NGg8gu/yghTJDq1awDvqhDXp6j4OObIgCwkIgFsFHsYwQAAQBADutjAgBADutjAwBADutjBABADutj',
+      token: '006499da72755484274a1f430c5a9a9ce17IADcvNp5r10R6iAFdwCcV/oSW1mwJeogQG0feCGscRgujQZa8+ij4OObIgBiaWAFqqzvYwQAAQA6ae5jAgA6ae5jAwA6ae5jBAA6ae5j',
+      uid: '1234',
     },
     callbacks: {
       EndCall: () => setInCall(false),
@@ -41,7 +43,7 @@ const App = () => {
     setInCall(true);
 
     // add new stream to databse
-    await addDoc(streamsCollectionRef, {title: inputStreamName, id: 'dadadaadada'});
+    // await addDoc(streamsCollectionRef, {title: inputStreamName, id: 'dadadaadada'});
 
   };
 
@@ -56,7 +58,8 @@ const App = () => {
 
   return (
     <div>
-      <Header></Header>
+      <Header/>
+      <StreamCatalog streams={streams} />
       <div
         className='flex gap-1'
       >
@@ -89,7 +92,7 @@ const App = () => {
                   <button
                     className='p-2 bg-blue-500 text-neutral-50'
                   >
-                    Join {stream.title}
+                    Join {stream.channel}
                   </button>
                 </div>
               )
