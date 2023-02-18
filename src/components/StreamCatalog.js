@@ -22,9 +22,6 @@ const StreamCatalog = ({ streams }) => {
                                 <p>
                                     {"Stream Name: " + stream.channel}
                                 </p>
-                                <p>
-                                    {"User Id: " + stream.uid}
-                                </p>
                             </div>
                         </button>
                     )
