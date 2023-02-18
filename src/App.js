@@ -1,51 +1,51 @@
-import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import AgoraUIKit, { PropsInterface, layout } from 'agora-react-uikit';
 import { db } from './firebase-config';
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import StreamCatalog from './components/StreamCatalog';
+import Stream from './components/Stream';
 
 const App = () => {
 
   // Agora Livestream state
   const [inCall, setInCall] = useState(false);
-  const [isHost, setHost] = useState(false);
-  const [isPinned, setPinned] = useState(false);
+  // const [isHost, setHost] = useState(false);
+  // const [isPinned, setPinned] = useState(false);
 
   // Firebase database state
-  const [inputStreamName, setinputStreamName] = useState('');
   const [streams, setStreams] = useState([]);
-  const [displayStreamList, setDisplayStreamList] = useState(false);
+  const [currentStream, setCurrentStream] = useState({});
   const streamsCollectionRef = collection(db, 'streams');
 
-  const PropsInterface = {
-    rtcProps: {
-      // delete this
-      appId: '499da72755484274a1f430c5a9a9ce17',
-      // appId: process.env.AGORA_APP_ID,
-      channel: 'testing',
-      role: isHost ? 'host' : 'audience',
-      layout: isPinned ? layout.pin : layout.grid,
-      token: '006499da72755484274a1f430c5a9a9ce17IADcvNp5r10R6iAFdwCcV/oSW1mwJeogQG0feCGscRgujQZa8+ij4OObIgBiaWAFqqzvYwQAAQA6ae5jAgA6ae5jAwA6ae5jBAA6ae5j',
-      uid: '1234',
-    },
-    callbacks: {
-      EndCall: () => setInCall(false),
-    },
-    styleProps: {
-      localBtnContainer: {backgroundColor: 'blueviolet'}
-    }
-  }
+  // const PropsInterface = {
+  //   rtcProps: {
+  //     // delete this
+  //     appId: '499da72755484274a1f430c5a9a9ce17',
+  //     // appId: process.env.AGORA_APP_ID,
+  //     channel: 'testing',
+  //     role: isHost ? 'host' : 'audience',
+  //     layout: isPinned ? layout.pin : layout.grid,
+  //     token: '006499da72755484274a1f430c5a9a9ce17IADcvNp5r10R6iAFdwCcV/oSW1mwJeogQG0feCGscRgujQZa8+ij4OObIgBiaWAFqqzvYwQAAQA6ae5jAgA6ae5jAwA6ae5jBAA6ae5j',
+  //     uid: '1234',
+  //   },
+  //   callbacks: {
+  //     EndCall: () => setInCall(false),
+  //   },
+  //   styleProps: {
+  //     localBtnContainer: {backgroundColor: 'blueviolet'}
+  //   }
+  // }
   
-  const createStream = async () => {
-    setInCall(true);
+  // const createStream = async () => {
+  //   setInCall(true);
 
-    // add new stream to databse
-    // await addDoc(streamsCollectionRef, {title: inputStreamName, id: 'dadadaadada'});
+  //   // add new stream to databse
+  //   // await addDoc(streamsCollectionRef, {title: inputStreamName, id: 'dadadaadada'});
 
-  };
+  // };
 
   useEffect(() => {
     const getStreams = async () => {
@@ -58,9 +58,16 @@ const App = () => {
 
   return (
     <div>
-      <Header/>
-      <StreamCatalog streams={streams} />
-      <div
+      <BrowserRouter>
+        <Header/>
+        <Routes>
+          <Route path='/' element={<StreamCatalog  streams={streams} setCurrentStream={setCurrentStream} setInCall={setInCall}/>}/>
+          <Route path='/stream' element={<Stream stream={currentStream} inCall={inCall} setInCall={setInCall}/>} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+      
+      {/* <div
         className='flex gap-1'
       >
         <input 
@@ -79,29 +86,9 @@ const App = () => {
         >
           Join Stream
         </button>
-      </div> 
-      {
-        displayStreamList ?
-          <div
-            className='flex flex-wrap gap-2 list-disc'
-          >
-            <p>Stream List:</p>
-            {streams.map((stream) => {
-              return (
-                <div key={stream.id}>
-                  <button
-                    className='p-2 bg-blue-500 text-neutral-50'
-                  >
-                    Join {stream.channel}
-                  </button>
-                </div>
-              )
-            })}
-            </div> :
-          null
-      }
+      </div>  */}
       
-      {
+      {/* {
         inCall ? 
         (
           <div style={styles.container}>
@@ -119,19 +106,12 @@ const App = () => {
               styleProps={PropsInterface.styleProps} />
           </div>
         ) : null
-      }
-      <Footer></Footer>
+      } */}
     </div>
   );
 }
 
-const styles = {
-  container: { width: '100vw', height: '100vh', display: 'flex', flex: 1, backgroundColor: '#007bff22'},
-  heading: { textAlign: 'center', marginBottom: 0 },
-  videoContainer: { display: 'flex', flexDirection: 'column', flex: 1 },
-  nav: { display: 'flex', justifyContent: 'space-around' },
-  btn: { backgroundColor: '#007bff', cursor: 'pointer', borderRadius: 5, padding: 5, color: '#ffffff', fontSize: 20 },
-}
+
 
 
 export default App;

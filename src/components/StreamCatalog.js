@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const StreamCatalog = ({ streams }) => {
+const StreamCatalog = ({ streams, setCurrentStream, setInCall}) => {
     return (
         <div
             className="flex gap-2 justify-center flex-wrap"
@@ -8,8 +9,13 @@ const StreamCatalog = ({ streams }) => {
             {
                 streams.map((stream) => {
                     return (
-                        <button
+                        <Link
+                            to="stream"
                             className="flex flex-col items-center"
+                            onClick={() => {
+                                setCurrentStream(stream);
+                                setInCall(true);
+                            }}
                         >
                             <div 
                                 className="w-[200px] h-[100px] bg-neutral-900"
@@ -23,7 +29,7 @@ const StreamCatalog = ({ streams }) => {
                                     {"Stream Name: " + stream.channel}
                                 </p>
                             </div>
-                        </button>
+                        </Link>
                     )
                 })
             }
