@@ -24,7 +24,7 @@ yarn-error.log*
 
 .env
 
-# database-debug.log
-# firebase-debug.log
-# firestore-debug.log
-.log
+database-debug.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
