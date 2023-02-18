@@ -1,11 +1,12 @@
 import React from "react";
 import { faStream } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
         <div
-            className="flex flex-col "
+            className="flex flex-col gap-6"
         >
             <div
                 className="flex justify-between px-12 pt-6"
@@ -25,6 +26,12 @@ const Header = () => {
             <div
                 className="self-center flex gap-2"
             >
+                <Link
+                    to="/"
+                    className="px-4 py-2 bg-neutral-400 rounded-lg text-xl font-bold"
+                >
+                    Browse Streams
+                </Link>
                 <button
                     className="px-4 py-2 bg-neutral-400 rounded-lg text-xl font-bold"
                 >
