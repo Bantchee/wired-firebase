@@ -19,6 +19,7 @@ const App = () => {
   const [streams, setStreams] = useState([]);
   const [currentStream, setCurrentStream] = useState({});
   const streamsCollectionRef = collection(db, 'streams');
+  const [user, setUser] = useState({});
 
   // const PropsInterface = {
   //   rtcProps: {
@@ -59,7 +60,7 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Header/>
+        <Header user={user} setUser={setUser} />
         <Routes>
           <Route path='/' element={<StreamCatalog  streams={streams} setCurrentStream={setCurrentStream} setInCall={setInCall}/>}/>
           <Route path='/stream' element={<Stream stream={currentStream} inCall={inCall} setInCall={setInCall}/>} />

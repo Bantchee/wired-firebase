@@ -4,7 +4,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { signInWithGoogle } from "../firebase-config";
 
-const Header = () => {
+const Header = ({user, setUser}) => {
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+        .then((result) => {
+            setUser({
+                name: result.user.displayName,
+                email: result.user.email,
+                profilePc: result.user.photoURL,
+                uid: result.user.uid,
+            });
+        })
+        .catch(error => {
+            throw error;
+        });
+    };
+
     return (
         <div
             className="flex flex-col gap-6"
@@ -18,12 +34,25 @@ const Header = () => {
                 >
                     Wired
                 </p>
-                <button
-                    onClick={signInWithGoogle}
-                    className="px-4 py-2 bg-neutral-400 rounded-lg text-3xl font-bold"
-                >
-                    Sign In With Google
-                </button>
+                {
+                    (user.name) ?
+                        <button
+                            className="p-2 hover:bg-neutral-300 rounded-full"
+                        >
+                            <img 
+                                src={user.profilePc} 
+                                alt="user profile" 
+                                className="rounded-full w-12"
+                                title={"Name: " + user.name + "\nEmail: " + user.email + "\nUserId: " + user.uid}
+                            />
+                        </button> :
+                        <button
+                            onClick={handleGoogleSignIn}
+                            className="px-4 py-2 bg-neutral-400 rounded-lg text-3xl font-bold"
+                        >
+                            Sign In With Google
+                        </button>
+                }     
             </div>
             <div
                 className="self-center flex gap-2"

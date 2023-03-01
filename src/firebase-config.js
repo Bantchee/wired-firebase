@@ -32,24 +32,23 @@ export const functions = getFunctions(app);
 
 const provider = new GoogleAuthProvider();
 
-export const signInWithGoogle = () => {
-  signInWithPopup(auth, provider)
-  .then((result) => {
-    const name = result.user.displayName;
-    const uid = result.user.uid;
-    const email = result.user.email;
-    const profilePic = result.user.photoURL;
+export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
-    localStorage.setItem("name", name);
-    localStorage.setItem("uid", uid);
-    localStorage.setItem("email", email);
-    localStorage.setItem("profilePic", profilePic);
-    
-  })
-  .catch(error => {
-    console.log(error);
-  });
-};
+// .then((result) => {
+//   const name = result.user.displayName;
+//   const uid = result.user.uid;
+//   const email = result.user.email;
+//   const profilePic = result.user.photoURL;
+
+//   localStorage.setItem("name", name);
+//   localStorage.setItem("uid", uid);
+//   localStorage.setItem("email", email);
+//   localStorage.setItem("profilePic", profilePic);
+  
+// })
+// .catch(error => {
+//   console.log(error);
+// });
 
 if(window.location.hostname.includes('localhost')) {
     connectFirestoreEmulator(db, 'localhost', 8080);
