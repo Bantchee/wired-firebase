@@ -2,6 +2,7 @@ import React from "react";
 import { faStream } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { signInWithGoogle } from "../firebase-config";
 
 const Header = () => {
     return (
@@ -18,9 +19,10 @@ const Header = () => {
                     Wired
                 </p>
                 <button
+                    onClick={signInWithGoogle}
                     className="px-4 py-2 bg-neutral-400 rounded-lg text-3xl font-bold"
                 >
-                    Sign In
+                    Sign In With Google
                 </button>
             </div>
             <div
