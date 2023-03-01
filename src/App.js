@@ -15,7 +15,6 @@ const App = () => {
   const [inCall, setInCall] = useState(false);
   const [isHost, setHost] = useState(false);
   const [isPinned, setPinned] = useState(false);
-  const [propsInterface, setPropsInterface] = useState({});
 
   // Firebase database state
   const [streams, setStreams] = useState([]);
@@ -25,7 +24,7 @@ const App = () => {
   const [user, setUser] = useState({});
   
 
-  setPropsInterface({
+  const PropsInterface = {
     rtcProps: {
       appId: process.env.AGORA_APP_ID,
       channel: "",
@@ -40,11 +39,19 @@ const App = () => {
     styleProps: {
       localBtnContainer: {backgroundColor: 'blueviolet'}
     }
-  });
+  };
 
   // IN > Out : streamName role > token
-  const generateToken = (streamName, role) => {
-    return "";
+  const generateToken = async (streamName) => {
+    // use env var to hide path
+    fetch(("https://agora-token-service-production-2b50.up.railway.app/" + `rtc/${streamName}/${PropsInterface.rtcProps.role}/userAccount/${PropsInterface.rtcProps.uid}/`),
+      {mode: 'cors'}
+    )
+    .then(result => result)
+    .then(output => {
+      console.log("Output: ", output);
+    })
+    .catch(err => console.error(err));
   };
 
   useEffect(() => {
@@ -59,9 +66,9 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Header user={user} setUser={setUser} streamName={streamName} setStreamName={setStreamName} />
+        <Header user={user} setUser={setUser} streamName={streamName} setStreamName={setStreamName} setInCall={setInCall} setHost={setHost} generateToken={generateToken} />
         <Routes>
-          <Route path='/' element={<StreamCatalog  streams={streams} setCurrentStream={setCurrentStream} setInCall={setInCall}/>}/>
+          <Route path='/' element={<StreamCatalog  streams={streams} setCurrentStream={setCurrentStream} />}/>
           <Route path='/stream' element={<Stream stream={currentStream} inCall={inCall} setInCall={setInCall}/>} />
         </Routes>
         <Footer />

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { signInWithGoogle } from "../firebase-config";
 
-const Header = ({user, setUser, streamName, setStreamName}) => {
+const Header = ({user, setUser, streamName, setStreamName, setHost, generateToken}) => {
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -25,7 +25,8 @@ const Header = ({user, setUser, streamName, setStreamName}) => {
         // Generate Stream Token 
         // Store Stream Name in database
     const handleStartStream = () => {
-
+        setHost(true);
+        generateToken(streamName);
     };
 
     // when user clicks Browse Stream Buttun, fetch Stream Names from Firebase and display them
@@ -81,6 +82,7 @@ const Header = ({user, setUser, streamName, setStreamName}) => {
                     Browse Streams
                 </Link>
                 <button
+                    onClick={handleStartStream}
                     className="px-4 py-2 bg-neutral-400 rounded-lg text-xl font-bold"
                 >
                     Start Stream

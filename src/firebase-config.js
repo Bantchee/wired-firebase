@@ -50,10 +50,10 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider);
 //   console.log(error);
 // });
 
-if(window.location.hostname.includes('localhost')) {
-    connectFirestoreEmulator(db, 'localhost', 8080);
-    connectFunctionsEmulator(functions, 'localhost', 5001);
-}
+// if(window.location.hostname.includes('localhost')) {
+//     connectFirestoreEmulator(db, 'localhost', 8080);
+//     connectFunctionsEmulator(functions, 'localhost', 5001);
+// }
 
 // get a list of cites from your database
 // export async function getStreams(db) {
