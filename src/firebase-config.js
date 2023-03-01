@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, connectFirestoreEmulator } from 'firebase/firestore/lite';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getAuth, connectAuthEmulator, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 const firebaseConfig = {
@@ -27,7 +27,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
+const auth = getAuth(app);
 export const functions = getFunctions(app);
+
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    console.log(result);
+    console.log(result.user.uid);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
 
 if(window.location.hostname.includes('localhost')) {
     connectFirestoreEmulator(db, 'localhost', 8080);
